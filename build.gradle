@@ -3,7 +3,7 @@ plugins {
     id 'maven'
 }
 
-group 'net.labymod.pluginloader'
+group 'de.labystudio.pluginloader'
 version '1.0.0'
 
 repositories {
