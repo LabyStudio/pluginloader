@@ -1,7 +1,7 @@
 # Plugin Loader
 Load and unload classes dynamically in your project
 
-### Example
+### Example core
 ```java
 package de.labystudio.pluginloader;
 
@@ -29,6 +29,28 @@ public class DemoProject implements Core {
 }
 ```
 
+### Example plugin
+
+```java
+package de.labystudio.pluginloader;
+
+import de.labystudio.pluginloader.plugin.Plugin;
+
+public class TestPlugin extends Plugin {
+
+    @Override
+    public void onEnable() {
+        // Enable your plugin...
+    }
+
+    @Override
+    public void onDisable() {
+        // Disable your plugin...
+    }
+    
+}
+```
+
 ### Add to gradle
 ```groovy
 repositories {
@@ -36,6 +58,6 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.LabyStudio:pluginloader:1.0.0'
+    compile 'com.github.LabyStudio:pluginloader:1.0.2'
 }
 ```
