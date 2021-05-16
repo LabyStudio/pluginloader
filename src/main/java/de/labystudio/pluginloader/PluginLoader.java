@@ -162,6 +162,21 @@ public class PluginLoader {
     }
 
     /**
+     * Unload and load given plugin
+     *
+     * @param plugin Plugin to reload
+     */
+    public void reloadPlugin(Plugin plugin) throws Exception {
+        ClassLoader parentClassLoader = plugin.getClass().getClassLoader().getParent();
+
+        // Unload plugin
+        unloadPlugin(plugin);
+
+        // Load plugin with previous parent class loader
+        loadPlugin(plugin.getPluginInfo(), createClassLoader(parentClassLoader, plugin.getPluginInfo(), plugin.getJarFile()));
+    }
+
+    /**
      * Iterate all plugins in the depending plugin list and check if it is ready to load
      *
      * @param parentClassLoader Parent class loader of the last loaded plugin
