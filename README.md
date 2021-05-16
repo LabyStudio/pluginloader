@@ -1,6 +1,7 @@
 # Plugin Loader
 Load and unload classes dynamically in your project
 
+### Example
 ```java
 package de.labystudio.pluginloader;
 
@@ -25,5 +26,16 @@ public class DemoProject implements Core {
         pluginLoader.loadPlugin(testPlugin.getJarFile());
     }
 
+}
+```
+
+### Add to gradle
+```groovy
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    compile 'com.github.LabyStudio:pluginloader:1.0.0'
 }
 ```
