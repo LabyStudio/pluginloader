@@ -60,7 +60,7 @@ public class PluginLoader {
      * @param directory Plugin directory. All jar files in this directory are loadable
      * @param logger    Plugin message logger
      */
-    protected PluginLoader(Core core, File directory, PluginLoaderLogger logger) {
+    public PluginLoader(Core core, File directory, PluginLoaderLogger logger) {
         this.core = core;
         this.directory = directory;
         this.logger = logger;
