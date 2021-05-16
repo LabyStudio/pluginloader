@@ -39,6 +39,11 @@ public class PluginLoader {
     private final File directory;
 
     /**
+     * Core class loader
+     */
+    private final ClassLoader classLoader;
+
+    /**
      * Plugin logger interface
      */
     private final PluginLoaderLogger logger;
@@ -56,13 +61,15 @@ public class PluginLoader {
     /**
      * Plugin loader to load or unload classes
      *
-     * @param core      The instance of the core project
-     * @param directory Plugin directory. All jar files in this directory are loadable
-     * @param logger    Plugin message logger
+     * @param core        The instance of the core project
+     * @param directory   Plugin directory. All jar files in this directory are loadable
+     * @param classLoader Core class loader
+     * @param logger      Plugin message logger
      */
-    public PluginLoader(Core core, File directory, PluginLoaderLogger logger) {
+    public PluginLoader(Core core, File directory, ClassLoader classLoader, PluginLoaderLogger logger) {
         this.core = core;
         this.directory = directory;
+        this.classLoader = classLoader;
         this.logger = logger;
     }
 
@@ -142,7 +149,7 @@ public class PluginLoader {
             scanner.close();
 
             PluginMeta pluginMeta = GSON.fromJson(json.toString(), PluginMeta.class);
-            PluginClassLoader classLoader = createClassLoader(ClassLoader.getSystemClassLoader(), pluginMeta, pluginFile);
+            PluginClassLoader classLoader = createClassLoader(this.classLoader, pluginMeta, pluginFile);
 
             String[] depends = pluginMeta.getDepends();
             if (depends == null || depends.length == 0) {

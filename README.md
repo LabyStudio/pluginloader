@@ -13,8 +13,9 @@ public class DemoProject implements Core {
 
     public DemoProject() {
         // Create plugin loader
-        PluginLoader pluginLoader = new PluginLoader(this, new File("plugins"), System.out::println);
-
+        PluginLoader pluginLoader = new PluginLoader(this, new File("plugins"),
+                ClassLoader.getSystemClassLoader(), System.out::println);
+        
         // Load all plugins in directory
         pluginLoader.loadPluginsInDirectory();
 
