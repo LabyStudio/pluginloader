@@ -1,12 +1,10 @@
-package net.labymod.pluginloader;
+package de.labystudio.pluginloader;
 
 import com.google.gson.Gson;
-import net.labymod.pluginloader.interfaces.Core;
-import net.labymod.pluginloader.interfaces.PluginLoaderLogger;
-import net.labymod.pluginloader.plugin.Plugin;
-import net.labymod.pluginloader.plugin.PluginClassLoader;
-import net.labymod.pluginloader.plugin.meta.DependingPlugin;
-import net.labymod.pluginloader.plugin.meta.PluginMeta;
+import de.labystudio.pluginloader.plugin.Plugin;
+import de.labystudio.pluginloader.plugin.PluginClassLoader;
+import de.labystudio.pluginloader.plugin.meta.DependingPlugin;
+import de.labystudio.pluginloader.plugin.meta.PluginMeta;
 
 import java.io.File;
 import java.util.ArrayList;

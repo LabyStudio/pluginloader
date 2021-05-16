@@ -1,4 +1,4 @@
-package net.labymod.pluginloader.config;
+package de.labystudio.pluginloader.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

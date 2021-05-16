@@ -1,4 +1,4 @@
-package net.labymod.pluginloader.plugin.meta;
+package de.labystudio.pluginloader.plugin.meta;
 
 import java.io.File;
 

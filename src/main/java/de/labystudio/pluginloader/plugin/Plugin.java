@@ -1,8 +1,8 @@
-package net.labymod.pluginloader.plugin;
+package de.labystudio.pluginloader.plugin;
 
-import net.labymod.pluginloader.interfaces.Core;
-import net.labymod.pluginloader.PluginLoader;
-import net.labymod.pluginloader.plugin.meta.PluginMeta;
+import de.labystudio.pluginloader.plugin.meta.PluginMeta;
+import de.labystudio.pluginloader.Core;
+import de.labystudio.pluginloader.PluginLoader;
 
 import java.io.File;
 

@@ -1,9 +1,8 @@
-package net.labymod.pluginloader.interfaces;
+package de.labystudio.pluginloader;
 
 /**
  * Core interface to access the project main instance
  *
  * @author LabyStudio
  */
-public interface Core {
-}
+public interface Core { }

@@ -1,4 +1,4 @@
-package net.labymod.pluginloader.interfaces;
+package de.labystudio.pluginloader;
 
 /**
  * Called from the the plugin loader to log messages in the main project
