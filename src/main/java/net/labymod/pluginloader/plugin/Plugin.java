@@ -1,42 +1,120 @@
 package net.labymod.pluginloader.plugin;
 
-public class Plugin {
-    private final String name;
-    private final String main;
+import net.labymod.pluginloader.interfaces.Core;
+import net.labymod.pluginloader.PluginLoader;
+import net.labymod.pluginloader.plugin.meta.PluginMeta;
 
-    private String[] authors;
-    private String description;
+import java.io.File;
 
-    private String prefix;
+/**
+ * Abstract plugin instance.
+ * Extend this class on your main instance of your dynamic project.
+ *
+ * @author LabyStudio
+ */
+public abstract class Plugin {
 
-    private String[] depends;
+    /**
+     * The instance of the core project
+     */
+    protected Core core;
 
-    public Plugin(String name, String main) {
-        this.name = name;
-        this.main = main;
+    /**
+     * Plugin loader instance
+     */
+    protected PluginLoader pluginLoader;
+
+    /**
+     * Plugin meta information from the json
+     */
+    private PluginMeta pluginMeta;
+
+    /**
+     * Data folder of the plugin for configuration files
+     */
+    private File dataFolder;
+
+    /**
+     * The loaded jar file of the plugin
+     */
+    private File jarFile;
+
+    /**
+     * This function is called when the plugin is loaded.
+     * Overwrite this method to handle the initialization of your project
+     */
+    public void onEnable() {
     }
 
-    public String getName() {
-        return name;
+    /**
+     * This function is called when the plugin is unloaded.
+     * Overwrite this method to handle the unloading of your project
+     */
+    public void onDisable() {
     }
 
-    public String getMain() {
-        return main;
+    /**
+     * Create instance of the plugin
+     */
+    private Plugin() {
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        if (!(classLoader instanceof PluginClassLoader)) {
+            this.pluginLoader.getLogger().log("A plugin was loaded from wrong classloader: " + getClass().getName());
+        } else {
+            ((PluginClassLoader) classLoader).initialize(this);
+        }
     }
 
-    public String[] getAuthors() {
-        return authors;
+    /**
+     * Initialize the plugin
+     *
+     * @param core         The instance of the core project
+     * @param pluginLoader Plugin loader instance
+     * @param meta         Plugin meta information from the json
+     * @param dataFolder   Data folder of the plugin for configuration files
+     * @param jarFile      The loaded jar file of the plugin
+     */
+    public void init(Core core, PluginLoader pluginLoader, PluginMeta meta, File dataFolder, File jarFile) {
+        this.core = core;
+        this.pluginLoader = pluginLoader;
+        this.pluginMeta = meta;
+        this.dataFolder = dataFolder;
+        this.jarFile = jarFile;
     }
 
-    public String getDescription() {
-        return description;
+    /**
+     * Get the plugin meta information from the json
+     *
+     * @return Plugin meta information from the json
+     */
+    public PluginMeta getPluginInfo() {
+        return pluginMeta;
     }
 
-    public String getPrefix() {
-        return prefix;
+    /**
+     * Get the loaded jar file of the plugin
+     *
+     * @return The loaded jar file of the plugin
+     */
+    public File getJarFile() {
+        return jarFile;
     }
 
-    public String[] getDepends() {
-        return depends;
+    /**
+     * Plugin loader instance
+     *
+     * @return Get the plugin loader instance
+     */
+    public PluginLoader getPluginLoader() {
+        return pluginLoader;
+    }
+
+    /**
+     * Get data folder of the plugin for configuration files
+     *
+     * @return Data folder of the plugin for configuration files
+     */
+    public File getDataFolder() {
+        return dataFolder;
     }
 }

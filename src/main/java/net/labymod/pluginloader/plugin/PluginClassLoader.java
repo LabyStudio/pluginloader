@@ -1,46 +1,99 @@
 package net.labymod.pluginloader.plugin;
 
-import net.labymod.pluginloader.Core;
-import net.labymod.pluginloader.PluginHandler;
+import net.labymod.pluginloader.interfaces.Core;
+import net.labymod.pluginloader.PluginLoader;
+import net.labymod.pluginloader.plugin.meta.PluginMeta;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 
+/**
+ * Plugin class loader
+ *
+ * @author LabyStudio
+ */
 public class PluginClassLoader extends URLClassLoader {
 
+    /**
+     * The instance of the core project
+     */
     private final Core core;
-    private final PluginHandler pluginHandler;
-    private final Plugin pluginInfo;
-    private final File dataFolder;
+
+    /**
+     * Plugin loader to load the source classes
+     */
+    private final PluginLoader pluginLoader;
+
+    /**
+     * Plugin meta information from the plugin json
+     */
+    private final PluginMeta meta;
+
+    /**
+     * Data directory location to store config files of the plugin
+     */
+    private final File dataDirectory;
+
+    /**
+     * Jar file location
+     */
     private final File file;
 
-    private JavaPlugin plugin;
+    /**
+     * Plugin instance
+     */
+    private Plugin plugin;
 
-    public PluginClassLoader(ClassLoader parent, Core core, PluginHandler pluginHandler, Plugin pluginInfo, File dataFolder, File file) throws MalformedURLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
+    /**
+     * Create plugin class loader
+     *
+     * @param parent        Parent class loader
+     * @param core          The instance of the core project
+     * @param pluginLoader  Plugin loader to load the source classes
+     * @param meta          Plugin meta information from the plugin json
+     * @param dataDirectory Data directory location to store config files of the plugin
+     * @param file          Jar file location
+     */
+    public PluginClassLoader(ClassLoader parent, Core core, PluginLoader pluginLoader, PluginMeta meta, File dataDirectory, File file) throws MalformedURLException {
         super(new URL[]{file.toURI().toURL()}, parent);
 
         this.core = core;
-        this.pluginHandler = pluginHandler;
-        this.pluginInfo = pluginInfo;
-        this.dataFolder = dataFolder;
+        this.pluginLoader = pluginLoader;
+        this.meta = meta;
+        this.dataDirectory = dataDirectory;
         this.file = file;
     }
 
-    public synchronized JavaPlugin newInstance() throws Exception {
+    /**
+     * Create new instance of the plugin
+     *
+     * @return Created plugin instance
+     */
+    public synchronized Plugin newInstance() throws Exception {
         @SuppressWarnings("unchecked")
-        Class<? extends JavaPlugin> clazz = (Class<? extends JavaPlugin>) Class.forName(pluginInfo.getMain(), true, this);
-        Class<? extends JavaPlugin> subClass = clazz.asSubclass(JavaPlugin.class);
+        Class<? extends Plugin> clazz = (Class<? extends Plugin>) Class.forName(meta.getMain(), true, this);
+        Class<? extends Plugin> subClass = clazz.asSubclass(Plugin.class);
 
         return (this.plugin = subClass.getConstructor().newInstance());
     }
 
-    synchronized void initialize(JavaPlugin javaPlugin) {
-        javaPlugin.init(this.core, this.pluginHandler, this.pluginInfo, this.dataFolder, this.file);
+    /**
+     * Initialize the plugin
+     *
+     * @param plugin Plugin instance
+     */
+    synchronized void initialize(Plugin plugin) {
+        plugin.init(this.core, this.pluginLoader, this.meta, this.dataDirectory, this.file);
     }
 
-    public JavaPlugin getPlugin() {
+    /**
+     * Get plugin instance
+     *
+     * @return Plugin instance
+     */
+    public Plugin getPlugin() {
         return plugin;
     }
 }
