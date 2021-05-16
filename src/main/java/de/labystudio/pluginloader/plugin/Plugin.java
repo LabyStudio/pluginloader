@@ -1,8 +1,8 @@
 package de.labystudio.pluginloader.plugin;
 
-import de.labystudio.pluginloader.plugin.meta.PluginMeta;
 import de.labystudio.pluginloader.Core;
 import de.labystudio.pluginloader.PluginLoader;
+import de.labystudio.pluginloader.plugin.meta.PluginMeta;
 
 import java.io.File;
 
@@ -27,17 +27,17 @@ public abstract class Plugin {
     /**
      * Plugin meta information from the json
      */
-    private PluginMeta pluginMeta;
+    protected PluginMeta pluginMeta;
 
     /**
      * Data folder of the plugin for configuration files
      */
-    private File dataFolder;
+    protected File dataDirectory;
 
     /**
      * The loaded jar file of the plugin
      */
-    private File jarFile;
+    protected File jarFile;
 
     /**
      * This function is called when the plugin is loaded.
@@ -68,17 +68,17 @@ public abstract class Plugin {
     /**
      * Initialize the plugin
      *
-     * @param core         The instance of the core project
-     * @param pluginLoader Plugin loader instance
-     * @param meta         Plugin meta information from the json
-     * @param dataFolder   Data folder of the plugin for configuration files
-     * @param jarFile      The loaded jar file of the plugin
+     * @param core          The instance of the core project
+     * @param pluginLoader  Plugin loader instance
+     * @param meta          Plugin meta information from the json
+     * @param dataDirectory Data directory of the plugin for configuration files
+     * @param jarFile       The loaded jar file of the plugin
      */
-    public void init(Core core, PluginLoader pluginLoader, PluginMeta meta, File dataFolder, File jarFile) {
+    public void init(Core core, PluginLoader pluginLoader, PluginMeta meta, File dataDirectory, File jarFile) {
         this.core = core;
         this.pluginLoader = pluginLoader;
         this.pluginMeta = meta;
-        this.dataFolder = dataFolder;
+        this.dataDirectory = dataDirectory;
         this.jarFile = jarFile;
     }
 
@@ -110,11 +110,11 @@ public abstract class Plugin {
     }
 
     /**
-     * Get data folder of the plugin for configuration files
+     * Get data directory of the plugin for configuration files
      *
-     * @return Data folder of the plugin for configuration files
+     * @return Data directory of the plugin for configuration files
      */
-    public File getDataFolder() {
-        return dataFolder;
+    public File getDataDirectory() {
+        return dataDirectory;
     }
 }
