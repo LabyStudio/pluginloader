@@ -59,7 +59,7 @@ public abstract class Plugin {
     public Plugin() {
         ClassLoader classLoader = this.getClass().getClassLoader();
         if (!(classLoader instanceof PluginClassLoader)) {
-            this.pluginLoader.getLogger().log("A plugin was loaded from wrong classloader: " + getClass().getName());
+            throw new RuntimeException("Plugin was loaded from wrong classloader: " + getClass().getName());
         } else {
             ((PluginClassLoader) classLoader).initialize(this);
         }
