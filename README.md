@@ -59,6 +59,6 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.LabyStudio:pluginloader:1.0.2'
+    compile 'com.github.LabyStudio:pluginloader:1.0.3'
 }
 ```
